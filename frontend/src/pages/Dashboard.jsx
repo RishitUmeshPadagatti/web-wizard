@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 const storeTypes = ['All', 'CAFE', 'BAKERY', 'BOOKSTORE', 'PLANT', 'STATIONARY'];
 
 export const Dashboard = () => {
 
     const [stores, setStores] = useState([])
-    console.log(stores);
+    const navigate = useNavigate()
 
     useEffect(() => {
         const fetchStores = async () => {
@@ -22,7 +23,6 @@ export const Dashboard = () => {
 
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedType, setSelectedType] = useState('All');
-    const navigate = useNavigate();
 
     const filteredStores = stores.filter(store => {
         const matchesSearch = store.name.toLowerCase().includes(searchTerm.toLowerCase());
@@ -85,8 +85,8 @@ export const Dashboard = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {filteredStores.map((store, index) => (
                         <div
-                            onClick={() => navigate(`/business/${store.id}`)}
                             key={store.id}
+                            onClick={() => navigate(`/business/${store.id}`)}
                             className="bg-white rounded-xl shadow-lg overflow-hidden transition-transform hover:scale-105"
                         >
                             <img
@@ -151,5 +151,7 @@ export const Dashboard = () => {
             </div>
 
         </div>
+
+        
     )
 }
